@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Category" representedClassName="Category" syncable="YES">
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="expenseC" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryPom" inverseName="expense" inverseEntity="CategoryPom" syncable="YES"/>
+        <relationship name="incomeC" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryPom" inverseName="income" inverseEntity="CategoryPom" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="categoryR" inverseEntity="Item" syncable="YES"/>
+    </entity>
+    <entity name="CategoryPom" representedClassName="CategoryPom" syncable="YES">
+        <relationship name="categorypom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profil" inverseName="categoryProfil" inverseEntity="Profil" syncable="YES"/>
+        <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="expenseC" inverseEntity="Category" syncable="YES"/>
+        <relationship name="income" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="incomeC" inverseEntity="Category" syncable="YES"/>
+    </entity>
+    <entity name="Debts" representedClassName="Debts" syncable="YES">
+        <attribute name="debt" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="paid" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="debtsMember" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Member" inverseName="memberDebts" inverseEntity="Member" syncable="YES"/>
+    </entity>
+    <entity name="Expense" representedClassName="Expense" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="descExpense" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numOfmembers" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="whopaid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="expenseMember" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Member" inverseName="memberExpense" inverseEntity="Member" syncable="YES"/>
+        <relationship name="groupeE" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Groupe" inverseName="groupeExpense" inverseEntity="Groupe" syncable="YES"/>
+    </entity>
+    <entity name="Groupe" representedClassName="Groupe" syncable="YES">
+        <attribute name="currency" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameGroupe" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="groupeExpense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="groupeE" inverseEntity="Expense" syncable="YES"/>
+        <relationship name="groupeMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Member" inverseName="memberGroupe" inverseEntity="Member" syncable="YES"/>
+        <relationship name="groupeP" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profil" inverseName="profillGroups" inverseEntity="Profil" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="descript" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paymentMethod" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="categoryR" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category" syncable="YES"/>
+    </entity>
+    <entity name="Member" representedClassName="Member" syncable="YES">
+        <attribute name="debt" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paid" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="memberDebts" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Debts" inverseName="debtsMember" inverseEntity="Debts" syncable="YES"/>
+        <relationship name="memberExpense" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expense" inverseName="expenseMember" inverseEntity="Expense" syncable="YES"/>
+        <relationship name="memberGroupe" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Groupe" inverseName="groupeMembers" inverseEntity="Groupe" syncable="YES"/>
+        <relationship name="memberProfil" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profil" inverseName="profilMember" inverseEntity="Profil" syncable="YES"/>
+    </entity>
+    <entity name="Profil" representedClassName="Profil" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameP" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="categoryProfil" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryPom" inverseName="categorypom" inverseEntity="CategoryPom" syncable="YES"/>
+        <relationship name="profillGroups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Groupe" inverseName="groupeP" inverseEntity="Groupe" syncable="YES"/>
+        <relationship name="profilMember" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Member" inverseName="memberProfil" inverseEntity="Member" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="-3962" positionY="35" width="128" height="118"/>
+        <element name="CategoryPom" positionX="-4124" positionY="-45" width="128" height="90"/>
+        <element name="Debts" positionX="-4716" positionY="-36" width="128" height="88"/>
+        <element name="Expense" positionX="-4493" positionY="93" width="128" height="163"/>
+        <element name="Groupe" positionX="-4412" positionY="-79" width="128" height="118"/>
+        <element name="Item" positionX="-4014" positionY="-243" width="128" height="163"/>
+        <element name="Member" positionX="-4464" positionY="-225" width="128" height="163"/>
+        <element name="Profil" positionX="-4196" positionY="-243" width="128" height="118"/>
+    </elements>
+</model>
